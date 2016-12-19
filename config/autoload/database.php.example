@@ -1,0 +1,33 @@
+<?php
+return [
+    'db' => [
+        'type' => 'PDO',    //支持mysqli和pdo
+        'master' => [
+            'host' => '127.0.0.1',
+            'dbname' => 'test',
+            'user' => 'root',
+            'password' => 'root',
+//            'charset' => 'utf8',
+//            'port' => '3306',
+        ],
+        //主从配置选项
+        'slave' => [
+            'slave1' => [
+                'host' => '127.0.0.1',
+                'dbname' => 'test',
+                'user' => 'root',
+                'password' => 'root',
+//              'charset' => 'utf8',
+//              'port' => '3306',
+            ],
+            'slave2' => [
+                'host' => '127.0.0.1',
+                'dbname' => 'test',
+                'user' => 'root',
+                'password' => 'root',
+//              'charset' => 'utf8',
+//              'port' => '3306',
+            ],
+        ],
+    ]
+];
