@@ -3,12 +3,11 @@ namespace Smile;
 
 class Smile
 {
-    public $configObj = null;
     static protected $instance = null;
 
     private function __construct()
     {
-        $this->configObj = new Config();
+        Factory::getConfig();
     }
 
     static public function getInstance()
@@ -21,6 +20,7 @@ class Smile
 
     public function start()
     {
-        Router::route($this->configObj->offsetGet('modules'));
+        $router = Factory::getRouter();
+        $router->route();
     }
 }

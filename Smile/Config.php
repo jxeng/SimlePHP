@@ -3,12 +3,13 @@ namespace Smile;
 
 class Config implements \ArrayAccess
 {
+    static protected $instance = null;
     protected $path = null;
     protected $config = [];
 
-    public function __construct()
+    private function __construct()
     {
-        $config = require BASEDIR . '/config/application.config.php';
+        $config = require_once BASEDIR . '/config/application.config.php';
         if (count($config['config']) > 0) {
             foreach ($config['config'] as $val) {
                 $item = require BASEDIR . '/config/autoload/' . $val . '.php';
@@ -18,6 +19,14 @@ class Config implements \ArrayAccess
             }
         }
         $this->config = $config;
+    }
+
+    static public function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
     public function offsetExists($key)
@@ -37,7 +46,7 @@ class Config implements \ArrayAccess
 
     public function offsetSet($key, $value)
     {
-        throw new \Exception("请在配置文件中修改！");
+        die("请在配置文件中修改！");
     }
 
     public function offsetUnset($key)

@@ -17,7 +17,7 @@ class Factory
             }
             return self::$proxy;
         }
-        $config = Smile::getInstance()->configObj->offsetGet('db');
+        $config = Register::get('config')['db'];
 
         if ($mode == 'master') {
             $db_config = $config['master'];
@@ -50,5 +50,25 @@ class Factory
             Register::set($key, $model);
         }
         return $model;
+    }
+
+    static public function getConfig()
+    {
+        $config = Register::get('config');
+        if (!$config) {
+            $config = Config::getInstance();
+            Register::set('config', $config);
+        }
+        return $config;
+    }
+
+    static public function getRouter()
+    {
+        $router = Register::get('router');
+        if (!$router) {
+            $router = Router::getInstance();
+            Register::set('router', $router);
+        }
+        return $router;
     }
 }

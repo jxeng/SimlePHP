@@ -5,11 +5,14 @@ class Utility
 {
     static public function parseURI()
     {
-        $request_uri = $_SERVER['REQUEST_URI'];
+        $request_uri = trim($_SERVER['REQUEST_URI'], '/');
         $arr = explode('/', $request_uri);
-        $controller_name = isset($arr[2]) && $arr[2] ? self::getUCwords($arr[2]) : 'Index';
-        $action_name = isset($arr[3]) && $arr[3] ? (strtolower(explode('?', $arr[3])[0])) : 'index';
-        $module_name = $arr[1] ? self::getUCwords($arr[1]) : 'Application';
+        $arr[] = '';
+        $arr[] = '';
+        list($module_name, $controller_name, $action_name) = $arr;
+        $controller_name = $controller_name ? self::getUCwords($controller_name) : 'Index';
+        $action_name = $action_name ? (strtolower(explode('?', $action_name)[0])) : 'index';
+        $module_name = $module_name ? self::getUCwords($module_name) : 'Application';
         return compact('controller_name', 'action_name', 'module_name');
     }
 

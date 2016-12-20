@@ -1,6 +1,8 @@
 <?php
 
 return [
+    //调试模式
+    'debug' => true,
     //加载的模块
     'modules' => [
         'Application',
